@@ -4,6 +4,6 @@
 	<ul>
 		<li><a href="${pageContext.request.contextPath}/main">이종현</a></li>
 		<li><a href="${pageContext.request.contextPath}/gb?action=list">방명록</a></li>
-		<li><a href="">게시판</a></li>
+		<li><a href="${pageContext.request.contextPath}/board?action=list">게시판</a></li>
 	</ul>
 </div>

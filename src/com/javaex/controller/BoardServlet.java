@@ -30,7 +30,14 @@ public class BoardServlet extends HttpServlet {
 
 		if ("wform".equals(action)) {
 			System.out.println("wform");
-			WebUtil.forward(request, response, "/WEB-INF/views/board/writeform.jsp");
+
+			HttpSession session = request.getSession();
+			UserVo uservo = (UserVo) session.getAttribute("authUser");
+			if (uservo != null) {
+				WebUtil.forward(request, response, "/WEB-INF/views/board/writeform.jsp");
+			} else {
+				WebUtil.redirect(request, response, "./user?action=loginform");
+			}
 		} else if ("write".equals(action)) {
 			System.out.println("write");
 
@@ -56,12 +63,18 @@ public class BoardServlet extends HttpServlet {
 			WebUtil.redirect(request, response, "./board?action=list");
 		} else if ("mform".equals(action)) {
 			System.out.println("mform");
-			int no = Integer.parseInt(request.getParameter("no"));
-			BoardVo boardvo = dao.getContent(no);
+			HttpSession session = request.getSession();
+			UserVo uservo = (UserVo) session.getAttribute("authUser");
+			if (uservo != null) {
+				int no = Integer.parseInt(request.getParameter("no"));
+				BoardVo boardvo = dao.getContent(no);
 
-			request.setAttribute("boardvo", boardvo);
+				request.setAttribute("boardvo", boardvo);
 
-			WebUtil.forward(request, response, "/WEB-INF/views/board/modifyform.jsp");
+				WebUtil.forward(request, response, "/WEB-INF/views/board/modifyform.jsp");
+			} else {
+				WebUtil.redirect(request, response, "./user?action=loginform");
+			}
 		} else if ("modify".equals(action)) {
 			System.out.println("modify");
 			int no = Integer.parseInt(request.getParameter("no"));
@@ -73,7 +86,7 @@ public class BoardServlet extends HttpServlet {
 			boardvo.setContent(content);
 			System.out.println(boardvo.toString());
 			dao.update(boardvo);
-			
+
 			WebUtil.redirect(request, response, "./board?action=read&no=" + no);
 		} else if ("read".equals(action)) {
 			System.out.println("read");

@@ -74,11 +74,15 @@ public class UserServlet extends HttpServlet {
 
 			HttpSession session = request.getSession();
 			UserVo vo = (UserVo) session.getAttribute("authUser");
-
+			
+			if(vo != null) {
 			vo = dao.getUser(vo.getNo());
 
 			request.setAttribute("uservo", vo);
 			WebUtil.forward(request, response, "/WEB-INF/views/user/modifyform.jsp");
+			} else {
+				WebUtil.redirect(request, response, "./user?action=loginform");
+			}
 		} else if ("modify".equals(action)) {
 			System.out.println("modify");
 

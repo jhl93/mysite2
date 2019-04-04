@@ -27,8 +27,11 @@ public class GuestBookServlet extends HttpServlet {
 
 		if ("dform".equals(actionName)) {
 			System.out.println("dform요청");
-
-			WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteform.jsp");
+			if (request.getParameter("no") != null) {
+				WebUtil.forward(request, response, "/WEB-INF/views/guestbook/deleteform.jsp");
+			} else {
+				WebUtil.redirect(request, response, "./gb?action=list");
+			}
 		} else if ("add".equals(actionName)) {
 			System.out.println("add요청");
 

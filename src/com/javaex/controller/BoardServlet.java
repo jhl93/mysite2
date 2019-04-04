@@ -74,7 +74,7 @@ public class BoardServlet extends HttpServlet {
 			System.out.println(boardvo.toString());
 			dao.update(boardvo);
 			
-			WebUtil.redirect(request, response, "./board?action=list");
+			WebUtil.redirect(request, response, "./board?action=read&no=" + no);
 		} else if ("read".equals(action)) {
 			System.out.println("read");
 

@@ -32,7 +32,8 @@ public class BoardDao {
 
 			// 3. SQL문 준비 / 바인딩 / 실행
 			String query = "SELECT B.NO, TITLE, CONTENT, HIT, REG_DATE, USER_NO, NAME "
-					+ "FROM BOARD B JOIN USERS U ON B.USER_NO = U.NO ";
+					+ "FROM BOARD B JOIN USERS U ON B.USER_NO = U.NO " +
+					  "ORDER BY B.NO ";
 			pstmt = conn.prepareStatement(query);
 			rs = pstmt.executeQuery();
 

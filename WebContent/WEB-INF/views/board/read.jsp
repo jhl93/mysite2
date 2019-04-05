@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%> 
+<% pageContext.setAttribute("newLine", "\n"); %>
 
 <!DOCTYPE html>
 <html>
@@ -36,7 +38,7 @@
 						<tr>
 							<td class="label">내용</td>
 							<td>
-								<div class="view-content">${requestScope.boardvo.content}
+								<div class="view-content">${fn:replace(requestScope.boardvo.content, newLine, "<br>")}
 								</div>
 							</td>
 						</tr>
